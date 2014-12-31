@@ -16,8 +16,17 @@ extend:
     pkgrepo:
       - require_in:
         - pkg: zabbix-server
+{%- elif salt['grains.get']('os_family') == 'RedHat' %}
+    pkgrepo:
+      - require_in:
+        - pkg: zabbix-server
+  zabbix_server_non_supported_repo:
+    pkgrepo:
+      - require_in:
+        - pkg: zabbix-server
 {% else %} {}
 {% endif %}
+
 
 # IMPORTANT NOTE: This is needed in Debian to ensure that installing the
 # server doesn't trigger a install of mysql-server. The official package of
